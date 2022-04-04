@@ -12,6 +12,7 @@ seachForm.addEventListener('submit', onSeach);
 function onSeach(event) {
   event.preventDefault();
   clearMarcup();
+  apiServise.page = 0;
   apiServise.searchFormValue = event.currentTarget.elements.searchQuery.value;
 
   apiServise
@@ -24,6 +25,7 @@ function onSeach(event) {
         );
       } else {
         Notiflix.Notify.success(`Hooray! We found ${response.data.totalHits} images.`);
+
         appendCard(response);
       }
     })

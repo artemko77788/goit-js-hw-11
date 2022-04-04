@@ -10,6 +10,7 @@ export default class ApiServis {
     const KEY = '26393294-335f15b3263fd329d68c58b33';
     const URL = 'https://pixabay.com/api/';
     this.page += 1;
+
     return await axios.get(
       `${URL}?key=${KEY}&q=${
         this.searchFormValue
