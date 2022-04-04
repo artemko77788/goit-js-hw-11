@@ -1,12 +1,18 @@
+import SimpleLightbox from 'simplelightbox';
+
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const gallery = document.querySelector('.gallery');
 
 function createMarcap(data) {
   const cards = data.data.hits;
 
-  const marcup = cards
-    .map(({ webformatURL, tags, likes, views, comments, downloads }) => {
+  return cards
+    .map(({ webformatURL, tags, likes, views, comments, downloads, largeImageURL }) => {
       return `  <div class="photo-card">
+<a class="gallery__item" href="${largeImageURL}">
   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+</a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
@@ -29,12 +35,18 @@ function createMarcap(data) {
 `;
     })
     .join('');
+}
 
-  gallery.innerHTML = marcup;
+function appendCard(data) {
+  gallery.insertAdjacentHTML('beforeend', createMarcap(data));
+  new SimpleLightbox('.gallery a', {
+    captionDelay: 250,
+    fadeSpeed: 170,
+  });
 }
 
 function clearMarcup() {
   gallery.innerHTML = ' ';
 }
 
-export { createMarcap, clearMarcup };
+export { createMarcap, clearMarcup, appendCard };
